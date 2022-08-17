@@ -1,9 +1,11 @@
+# See LICENSE.vyoma for details
+
 import cocotb
 from cocotb.triggers import Timer
 import random
 
 @cocotb.test()
-async def test_mux(dut):
+async def test_mux_debug(dut):
    in1 = 0
    in2 = 0
    sel = 0
@@ -39,8 +41,8 @@ async def test_mux(dut):
    dut.inp28.value = in1
    dut.inp29.value = in2
    dut.inp30.value = in1
-   #dut.inp31.value = in2
-   dut.sel.value= 0b11101
+   dut.inp31.value = in2
+   dut.sel.value= 0b11110
      
    await Timer(2, units='ns')
     
