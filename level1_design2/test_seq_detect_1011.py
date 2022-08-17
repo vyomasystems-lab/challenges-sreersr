@@ -14,7 +14,7 @@ from cocotb.triggers import RisingEdge, FallingEdge
 async def test_seq_bug1(dut):
     """Test for seq detection """
 
-    clock = Clock(dut.clk, 10, units="us")  # Create a 10us period clock on port clk
+    clock = Clock(dut.clk, 30, units="us")  # Create a 10us period clock on port clk
     cocotb.start_soon(clock.start())        # Start the clock
 
     # reset
@@ -22,5 +22,24 @@ async def test_seq_bug1(dut):
     await FallingEdge(dut.clk)  
     dut.reset.value = 0
     await FallingEdge(dut.clk)
-
-    cocotb.log.info('#### CTB: Develop your test here! ######')
+    #input
+    for i in range(20):
+     await RisingEdge(dut.clk)
+     dut.inp_bit.value = 1
+     await RisingEdge(dut.clk)
+     dut.inp_bit.value = 0
+    await RisingEdge(dut.clk)
+    dut.inp_bit.value = 1
+    await RisingEdge(dut.clk)
+    dut.inp_bit.value = 1
+    await RisingEdge(dut.clk)
+    dut.inp_bit.value = 1
+    await RisingEdge(dut.clk)
+    dut.inp_bit.value = 0
+    await RisingEdge(dut.clk)
+    dut.inp_bit.value = 1
+    await RisingEdge(dut.clk)
+    dut.inp_bit.value = 1
+    
+    assert dut.seq_seen.value == 0,f"dut.current_state.value != SEQ_1011"
+    
