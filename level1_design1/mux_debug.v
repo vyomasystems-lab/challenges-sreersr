@@ -59,3 +59,7 @@ module mux(sel,inp0, inp1, inp2, inp3, inp4, inp5, inp6, inp7, inp8,
   end
 
 endmodule 
+// bug1-> sel of inp12 is wrong
+// bug2 -> inp30 is not assigned 
+// bug3 -> inp31 is not assigned 
+// default condition is not requied in a mux
